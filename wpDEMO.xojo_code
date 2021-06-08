@@ -244,47 +244,16 @@ Begin WebPage wpDEMO
       _mPanelIndex    =   -1
    End
    Begin teccGDPR teccGDPR1
+      ButtonText      =   "Got it!"
       ControlID       =   ""
       enabled         =   True
-      Height          =   32
       Index           =   -2147483648
-      Indicator       =   ""
-      Left            =   0
-      LockBottom      =   False
       LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
+      MessageText     =   "hallo jmu üöäß"
+      MessageTextColor=   &cFF260000
+      PolicyButtonText=   "Read Our Cookie Policy"
+      PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
-      TabIndex        =   87
-      Tooltip         =   ""
-      Top             =   0
-      Visible         =   True
-      Width           =   32
-      _mPanelIndex    =   -1
-   End
-   Begin teccGDPR teccGDPR2
-      ControlID       =   ""
-      enabled         =   True
-      Height          =   34
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Scope           =   2
-      TabIndex        =   87
-      Tooltip         =   ""
-      Top             =   247
-      Visible         =   True
-      Width           =   100
       _mPanelIndex    =   -1
    End
 End
