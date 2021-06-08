@@ -244,14 +244,15 @@ Begin WebPage wpDEMO
       _mPanelIndex    =   -1
    End
    Begin teccGDPR teccGDPR1
-      ButtonText      =   "Got it!"
+      ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
+      MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
-      MessageTextColor=   &cFF260000
-      PolicyButtonText=   "Read Our Cookie Policy"
+      MessageTextColor=   &c008F5100
+      PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
       _mPanelIndex    =   -1
