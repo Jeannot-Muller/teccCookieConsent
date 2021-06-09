@@ -28,7 +28,6 @@ Begin WebPage wpDEMO
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lblStatus4
       Bold            =   False
@@ -245,10 +244,12 @@ Begin WebPage wpDEMO
       _mPanelIndex    =   -1
    End
    Begin teccCookieConsent teccCookieConsent1
+      BoxAppearDelay  =   0
       ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
       Index           =   -2147483648
+      Left            =   0.0
       LockedInPosition=   False
       MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
@@ -256,6 +257,7 @@ Begin WebPage wpDEMO
       PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
+      Top             =   0.0
       _mPanelIndex    =   -1
    End
 End
