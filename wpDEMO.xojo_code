@@ -245,11 +245,12 @@ Begin WebPage wpDEMO
    End
    Begin teccCookieConsent teccCookieConsent1
       BoxAppearDelay  =   0
+      ButtonColor     =   &cFF930000
+      ButtonFontSize  =   14
       ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
       Index           =   -2147483648
-      Left            =   0.0
       LockedInPosition=   False
       MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
@@ -257,7 +258,6 @@ Begin WebPage wpDEMO
       PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
-      Top             =   0.0
       _mPanelIndex    =   -1
    End
 End
