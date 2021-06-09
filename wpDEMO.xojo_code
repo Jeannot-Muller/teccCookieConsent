@@ -28,6 +28,7 @@ Begin WebPage wpDEMO
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lblStatus4
       Bold            =   False
@@ -111,14 +112,14 @@ Begin WebPage wpDEMO
       Scope           =   0
       TabIndex        =   63
       TabPanelIndex   =   0
-      Text            =   "teccGDPR"
+      Text            =   "teccCookieConsent"
       TextAlignment   =   0
       TextColor       =   &c00539200
       Tooltip         =   ""
       Top             =   93
       Underline       =   False
       Visible         =   True
-      Width           =   206
+      Width           =   383
       _mPanelIndex    =   -1
    End
    Begin WebLabel lblStatus6
@@ -163,7 +164,7 @@ Begin WebPage wpDEMO
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
-      Left            =   246
+      Left            =   411
       LockBottom      =   False
       LockedInPosition=   False
       LockHorizontal  =   False
@@ -179,7 +180,7 @@ Begin WebPage wpDEMO
       TextAlignment   =   0
       TextColor       =   &c00539200
       Tooltip         =   ""
-      Top             =   93
+      Top             =   101
       Underline       =   False
       Visible         =   True
       Width           =   194
@@ -243,7 +244,7 @@ Begin WebPage wpDEMO
       Width           =   315
       _mPanelIndex    =   -1
    End
-   Begin teccGDPR teccGDPR1
+   Begin teccCookieConsent teccCookieConsent1
       ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
