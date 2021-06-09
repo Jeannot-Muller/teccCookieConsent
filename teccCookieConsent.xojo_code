@@ -508,6 +508,10 @@ Inherits WebSDKControl
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private mPolicyURLHandler As PolicyURLlHandlers
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private nCalls As Integer
 	#tag EndProperty
 
@@ -586,6 +590,21 @@ Inherits WebSDKControl
 		PolicyButtonURL As string
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Return mPolicyURLHandler
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mPolicyURLHandler = value
+			  UpdateControl
+			End Set
+		#tag EndSetter
+		PolicyURLHandler As PolicyURLlHandlers
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private Shared teccCookieConsentCSS As WebFile
 	#tag EndProperty
@@ -613,6 +632,11 @@ Inherits WebSDKControl
 	#tag Enum, Name = PolicyButtonTargets, Type = Integer, Flags = &h0
 		NewPage
 		SamePage
+	#tag EndEnum
+
+	#tag Enum, Name = PolicyURLlHandlers, Type = Integer, Flags = &h0
+		XojoEvent
+		BrowserLink
 	#tag EndEnum
 
 
@@ -752,6 +776,18 @@ Inherits WebSDKControl
 			InitialValue="true"
 			Type="boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PolicyURLHandler"
+			Visible=true
+			Group="teccGDPR"
+			InitialValue="0"
+			Type="PolicyURLlHandlers"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - XojoEvent"
+				"1 - BrowserLink"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PolicyButtonText"

@@ -264,6 +264,7 @@ Begin WebPage wpDEMO
       PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
+      PolicyURLHandler=   0
       Scope           =   2
       Top             =   0.0
       _mPanelIndex    =   -1
