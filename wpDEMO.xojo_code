@@ -250,12 +250,15 @@ Begin WebPage wpDEMO
       ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
+      iconColor       =   &c93510000
+      iconVisibility  =   True
       Index           =   -2147483648
       LockedInPosition=   False
       MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
       MessageTextColor=   &c008F5100
       PolicyButtonText=   "Read Our Cookie Policy jmu"
+      PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
       _mPanelIndex    =   -1
