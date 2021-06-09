@@ -245,6 +245,7 @@ Begin WebPage wpDEMO
    End
    Begin teccCookieConsent teccCookieConsent1
       BoxAppearDelay  =   0
+      BoxPosition     =   5
       ButtonColor     =   &cFF930000
       ButtonFontSize  =   14
       ButtonText      =   "Got it! OK."
