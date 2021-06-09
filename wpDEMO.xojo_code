@@ -251,17 +251,21 @@ Begin WebPage wpDEMO
       ButtonText      =   "Got it! OK."
       ControlID       =   ""
       enabled         =   True
-      iconColor       =   &c93510000
-      iconVisibility  =   True
+      IconColor       =   &c93510000
+      IconVisibility  =   True
       Index           =   -2147483648
+      Left            =   0.0
       LockedInPosition=   False
       MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
       MessageTextColor=   &c008F5100
+      PolicyButtonShow=   True
+      PolicyButtonTarget=   0
       PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
       Scope           =   2
+      Top             =   0.0
       _mPanelIndex    =   -1
    End
 End
@@ -296,6 +300,13 @@ End
 	#tag Event
 		Sub Pressed()
 		  session.GoToURL( "https://blog.xojodocs.com", true )
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events teccCookieConsent1
+	#tag Event
+		Sub PolicyClicked()
+		  messageBox("The policy got clicked!")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

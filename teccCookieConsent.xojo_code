@@ -6,6 +6,19 @@ Inherits WebSDKControl
 		  #Pragma unused name
 		  #Pragma unused parameters
 		  // Events sent with TriggerServerEvent using your controlID will end up here
+		  
+		  Try
+		    
+		    Select Case Name
+		    Case "PolicyClicked"
+		      PolicyClicked()
+		      Return True
+		      
+		    End Select
+		    
+		  Catch
+		    
+		  End Try
 		End Function
 	#tag EndEvent
 
@@ -43,6 +56,14 @@ Inherits WebSDKControl
 		    boxPositionStr = " top-center"
 		  Case boxPositions.top_right
 		    boxPositionStr = " top-right"
+		  End Select
+		  
+		  Var PolicyButtonTargetStr As String = "_blank"
+		  Select Case PolicyButtonTarget
+		  Case PolicyButtonTargets.NewPage
+		    PolicyButtonTargetStr = "_blank"
+		  Case PolicyButtonTargets.SamePage
+		    PolicyButtonTargetStr = "_self"
 		  End Select
 		  
 		  Var cssStr As String
@@ -222,6 +243,9 @@ Inherits WebSDKControl
 		  js.value("iconVisibility") = iconVisibility
 		  js.value("cookiePolicyButtonTextColor") = "#" + PolicyButtonTextColor.ToString.Right(6)
 		  js.value("boxPosition") = boxPositionStr
+		  js.value("policyButtonTarget") = PolicyButtonTargetStr
+		  js.value("showPolicy") = PolicyButtonShow
+		  
 		  
 		  
 		  
@@ -258,6 +282,11 @@ Inherits WebSDKControl
 		  
 		End Function
 	#tag EndEvent
+
+
+	#tag Hook, Flags = &h0
+		Event PolicyClicked()
+	#tag EndHook
 
 
 	#tag ComputedProperty, Flags = &h0
@@ -459,6 +488,14 @@ Inherits WebSDKControl
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private mPolicyButtonShow As boolean = true
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mPolicyButtonTarget As PolicyButtonTargets
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private mPolicyButtonText As String = "OK"
 	#tag EndProperty
 
@@ -473,6 +510,36 @@ Inherits WebSDKControl
 	#tag Property, Flags = &h21
 		Private nCalls As Integer
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Return mPolicyButtonShow
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mPolicyButtonShow = value
+			  UpdateControl
+			End Set
+		#tag EndSetter
+		PolicyButtonShow As boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Return mPolicyButtonTarget
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mPolicyButtonTarget = value
+			  UpdateControl
+			End Set
+		#tag EndSetter
+		PolicyButtonTarget As PolicyButtonTargets
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -524,7 +591,7 @@ Inherits WebSDKControl
 	#tag EndProperty
 
 
-	#tag Constant, Name = kJSCode, Type = String, Dynamic = False, Default = \"\"use strict\";\nvar tecc;\n(function (tecc) {\n    class teccCookieConsent extends XojoWeb.XojoControl {\n        constructor(id\x2C events) {\n            super(id\x2C events);\n        }\n\n        updateControl(data) {\n            super.updateControl(data);\n            let js \x3D $.parseJSON(data);\n            this.enabled \x3D js.enabled;\n            if ( this.enabled \x3D\x3D false ) {\n             return;\n            }\n            this.teccCookieConsentCSS \x3D js.teccCookieConsentCSS;\n            this.messageText \x3D js.messageText;\n            this.messageTextColor \x3D js.messageTextColor;\n\t    this.messageFontSize \x3D js.messageFontSize;\t\t\t\t \n            this.buttonText \x3D js.buttonText;\n            this.buttonColor \x3D js.buttonColor;\t  \t\t\t\t\n\t    this.buttonFontSize \x3D js.buttonFontSize;\t\n            this.cookiePolicyButtonText \x3D js.cookiePolicyButtonText;\n            this.cookiePolicyButtonTextColor \x3D js.cookiePolicyButtonTextColor;\n            this.cookiePolicyButtonUrl \x3D js.cookiePolicyButtonUrl;\n            this.iconColor \x3D js.iconColor\x2C \n            this.iconVisibility \x3D js.iconVisibility; \t\n            this.boxAppearDelay \x3D js.boxAppearDelay;\n            this.boxPosition \x3D js.boxPosition;\n            var element \x3D document.getElementById(\'teccCookieConsentinject\');\n            if ( element !\x3D null) {\n            element.innerHTML\x3D this.teccCookieConsentCSS;\n            }\n            $.cookieBubble( {\n             \tmessageText: this.messageText\x2C\n                messageTextColor: this.messageTextColor\x2C\n                messageFontSize: this.messageFontSize\x2C\n                buttonText: this.buttonText\x2C\n                buttonColor: this.buttonColor\x2C\n                buttonFontSize: this.buttonFontSize\x2C\n                iconColor: this.iconColor\x2C\n                iconVisibility: this.iconVisibility\x2C\n                cookiePolicyButtonText: this.cookiePolicyButtonText\x2C\n                cookiePolicyButtonTextColor: this.cookiePolicyButtonTextColor\x2C\n                cookiePolicyButtonUrl: this.cookiePolicyButtonUrl\x2C      \n                boxAppearDelay: this.boxAppearDelay\x2C\n                boxPosition: this.boxPosition\n            });\n\n       \n          }\n      }\n    tecc.teccCookieConsent \x3D teccCookieConsent;\n})(tecc || (tecc \x3D {}));\n\n/****************************************\n * teccCookieConsent for Xojo Web 2 Version1.0\n * author: Dr. Jeannot Muller\n * Based on (correction of errors and adaption for Xojo Web 2):\n * \n * \n * cookieBubble.js: Version 1.1.4\n * author: Jo\xC3\xA3o Pereira\n * website: http://joaopereira.pt\n * email: joaopereirawd@gmail.com\n * Licensed MIT \n*****************************************/\n(function ($) {\n\t$.cookieBubble \x3D function (options) {\n\t\t\tvar private_opt \x3D {\n\t\t\t\tcookieName: \'cookieBubble\'\x2C\n\t\t\t\tisVisible: false\x2C\n\t\t\t\tcookieValue: true\n\t\t\t}\n\t\t\t//extended opts\n\t\t\tvar settings \x3D $.extend({\t\n\t\t\t\tcookieMaxAge  \t\t\t\t\t\t: 30\x2C \n\t\t\t\tmessageText\t\t\t\t\t\t\t: \'We use cookies to personalize your experience. By continuing to visit this website you agree to our use of cookies.\'\x2C \n\t\t\t\tmessageTextColor\t\t\t\t\t\t: undefined\x2C        \n\t\t\t\tmessageFontSize\t\t\t\t\t\t: undefined\x2C\t\t\t\t \n\t\t\t\tbuttonText \t\t\t\t\t\t\t: \'Got it\'\x2C   \n\t\t\t\tbuttonColor\t\t\t\t\t\t\t: undefined\x2C   \t\t\t\t\n\t\t\t\tbuttonFontSize\t\t\t\t\t\t: undefined\x2C\t\t\t\t  \n\t\t\t\ticonColor\t\t\t\t\t\t\t: undefined\x2C    \t\t\t \n\t\t\t\ticonVisibility\t\t  \t\t\t\t\t: true\x2C \t\t              \n\t\t\t\tcookiePolicyButtonText\t\t\t\t: \'Read Our Cookie Policy\'\x2C\n\t\t\t\tcookiePolicyButtonTextColor\t\t    \t: undefined\x2C\n\t\t\t\tcookiePolicyButtonUrl\t\t\t\t\t: \'http://allaboutcookies.org/\'\x2C\n\t\t\t\tcookiePolicyButtonTarget\t\t\t\t: \'_blank\'\x2C\n\t\t\t\tboxAppearDelay\t\t\t\t\t\t: 1000\x2C\n                               boxPosition   \t\t\t\t\t\t\t: undefined\n\t\t\t}\x2C options);\n\n\t\t\tvar box_visibility \x3D private_opt.isVisible \? \'show\' : \'hide\';\n\t\tvar box_iconVisibility \x3D settings.iconVisibility \? \'<div class\x3D\"cb-image\"><svg xmlns\x3D\"http://www.w3.org/2000/svg\" viewBox\x3D\"0 0 97.93 97.93\"><defs><style>.cookie-inner-color{fill:\' + settings.iconColor + \'!important\' + \'}</style></defs><g id\x3D\"Layer_2\" data-name\x3D\"Layer 2\"><g id\x3D\"Layer_1-2\" data-name\x3D\"Layer 1\"><path d\x3D\"M44\x2C23.76a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C.91\x2C3.37A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C44\x2C23.76Z\"/><path d\x3D\"M25.9\x2C40.32a2.47\x2C2.47\x2C0\x2C0\x2C0\x2C0\x2C4.93h0a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C0-4.93Z\"/><circle cx\x3D\"32.08\" cy\x3D\"65.86\" r\x3D\"2.47\"/><path d\x3D\"M56.38\x2C69.91a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C1.14\x2C1.49A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C56.38\x2C69.91Z\"/><path d\x3D\"M72\x2C52.68a2.47\x2C2.47\x2C0\x2C0\x2C0-2.38\x2C1.83\x2C2.44\x2C2.44\x2C0\x2C0\x2C0\x2C.25\x2C1.87\x2C2.47\x2C2.47\x2C0\x2C0\x2C0\x2C4.52-.59\x2C2.44\x2C2.44\x2C0\x2C0\x2C0-.25-1.87A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C72\x2C52.68Z\"/><path class\x3D\"cookie-inner-color\" d\x3D\"M89.51\x2C52.86A14\x2C14\x2C0\x2C0\x2C1\x2C81\x2C47.2\x2C14.09\x2C14.09\x2C0\x2C0\x2C1\x2C61\x2C35.68\x2C14.09\x2C14.09\x2C0\x2C0\x2C1\x2C49.49\x2C15.73a14\x2C14\x2C0\x2C0\x2C1-5.66-8.55\x2C44\x2C44\x2C0\x2C0\x2C0-21.09\x2C6.15A44.26\x2C44.26\x2C0\x2C0\x2C0\x2C71.46\x2C87.08\x2C44.24\x2C44.24\x2C0\x2C0\x2C0\x2C89.51\x2C52.86ZM28.28\x2C43.42a2.47\x2C2.47\x2C0\x2C0\x2C1-2.38\x2C1.83h0a2.47\x2C2.47\x2C0\x2C1\x2C1\x2C2.38-1.83Zm3.8\x2C24.9a2.47\x2C2.47\x2C0\x2C1\x2C1\x2C2.47-2.47A2.47\x2C2.47\x2C0\x2C0\x2C1\x2C32.08\x2C68.32ZM44.92\x2C27.13A2.47\x2C2.47\x2C0\x2C1\x2C1\x2C44\x2C23.76\x2C2.47\x2C2.47\x2C0\x2C0\x2C1\x2C44.92\x2C27.13ZM57.28\x2C73.27a2.47\x2C2.47\x2C0\x2C1\x2C1-.9-3.36\x2C2.47\x2C2.47\x2C0\x2C0\x2C1\x2C.9\x2C3.36ZM74.42\x2C55.79a2.47\x2C2.47\x2C0\x2C1\x2C1-.25-1.87A2.45\x2C2.45\x2C0\x2C0\x2C1\x2C74.42\x2C55.79Z\"/><path d\x3D\"M97.93\x2C48.52v-.2A2.35\x2C2.35\x2C0\x2C0\x2C0\x2C95.7\x2C46a9.37\x2C9.37\x2C0\x2C0\x2C1-8-5.45\x2C2.35\x2C2.35\x2C0\x2C0\x2C0-3.49-.93\x2C9.51\x2C9.51\x2C0\x2C0\x2C1-5.44\x2C1.72A9.4\x2C9.4\x2C0\x2C0\x2C1\x2C69.39\x2C31.1a2.35\x2C2.35\x2C0\x2C0\x2C0-2.55-2.55c-.28\x2C0-.57\x2C0-.85\x2C0a9.39\x2C9.39\x2C0\x2C0\x2C1-7.68-14.81\x2C2.35\x2C2.35\x2C0\x2C0\x2C0-.93-3.49\x2C9.37\x2C9.37\x2C0\x2C0\x2C1-5.45-8A2.35\x2C2.35\x2C0\x2C0\x2C0\x2C49.61\x2C0H49a49\x2C49\x2C0\x2C1\x2C0\x2C49\x2C49C97.93\x2C48.82\x2C97.93\x2C48.67\x2C97.93\x2C48.52ZM71.46\x2C87.08A44.26\x2C44.26\x2C0\x2C0\x2C1\x2C22.74\x2C13.33\x2C44\x2C44\x2C0\x2C0\x2C1\x2C47.53\x2C4.72a14\x2C14\x2C0\x2C0\x2C0\x2C5.66\x2C8.55A14.09\x2C14.09\x2C0\x2C0\x2C0\x2C64.71\x2C33.22\x2C14.09\x2C14.09\x2C0\x2C0\x2C0\x2C84.66\x2C44.75a14\x2C14\x2C0\x2C0\x2C0\x2C8.56\x2C5.66A44.3\x2C44.3\x2C0\x2C0\x2C1\x2C71.46\x2C87.08Z\"/></g></g></svg></div>\' : \'\';\n\t\tvar cookiePolicyTarget \x3D settings.cookiePolicyButtonTarget \x3D\x3D\x3D \'_blank\' || settings.cookiePolicyButtonTarget \x3D\x3D\x3D \'_self\' \? settings.cookiePolicyButtonTarget : settings.cookiePolicyButtonTarget;\n\n\t\t\tvar cookieApp \x3D {\n\t\t\t\tinit: function() {\n\t\t\t\t\tcookieApp.body();\n\t\t\t\t\tcookieApp.painter();\n\t\t\t\t\tcookieApp.checkCookie(); \n\t\t\t\t}\x2C\n\t\t\t\tbody: function() {\n\t\t\t\t\t$(\"body\").append(\n\t\t\t\t\t\t\'<div class\x3D\"cookie-bubble \'+box_visibility +settings.boxPosition+\'\">\'+\n\t\t\t\t\t\t\t\'<div class\x3D \"cb-wrapper\">\'+\n\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-row\">\'+\n\t\t\t\t\t\t\t\t\tbox_iconVisibility+\n\t\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-row-content\">\'+\n\t\t\t\t\t\t\t\t\t\t\'<span class\x3D\"message\">\'+settings.messageText+\'</span>\'+\n\t\t\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-controls\">\'+\n\t\t\t\t\t\t\t\t\t\t\t\'<button class\x3D\"agreement-btn\">\' + settings.buttonText + \'</button>\' +\n\t\t\t\t\t\t\t\t\t\t\t\'<a class\x3D\"cookie-policy-btn\" href\x3D\' + settings.cookiePolicyButtonUrl + \' target\x3D\' + cookiePolicyTarget + \'>\'\n\t\t\t\t\t\t\t\t\t\t\t\t+settings.cookiePolicyButtonText+\n\t\t\t\t\t\t\t\t\t\t\t\'</a>\'+\n\t\t\t\t\t\t\t\t\t\t\'</div>\' +\n\t\t\t\t\t\t\t\t\t\'</div>\'+\n\t\t\t\t\t\t\t\'</div >\'+\n\t\t\t\t\t\t\'</div >\'\n\n\t\t\t\t\t); \n\t\t\t\t}\x2C\n\t\t\t\tpainter:function(){\n\t\t\t\t\tvar cb_message \t\t\t  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cb-row-content .message\')\x2C\n\t\t\t\t\t\tcb_button \t\t\t  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cb-row-content .agreement-btn\')\x2C\n\t\t\t\t\t\tcb_cookie_policy_btn  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cookie-policy-btn\');\n\n\n\t\t\t\t\tvar style_message \x3D {\n\t\t\t\t\t\t\'color\': settings.messageTextColor\x2C\n\t\t\t\t\t\t\'font-size\': settings.messageFontSize\n\t\t\t\t\t}\n\n\t\t\t\t\tvar style_agreement_btn \x3D {\n\t\t\t\t\t\t\'background-color\': settings.buttonColor\x2C\n\t\t\t\t\t\t\'font-size\': settings.buttonFontSize\n\t\t\t\t\t}\n\n\t\t\t\t\tvar style_cookie_policy_btn \x3D {\n\t\t\t\t\t\t\'color\': settings.cookiePolicyButtonTextColor\n\t\t\t\t\t}\n\t\t\t\t\n\t\t\t\t\tcb_message.css(style_message);\n\t\t\t\t\tcb_button.css(style_agreement_btn);\n\t\t\t\t\tcb_cookie_policy_btn.css(style_cookie_policy_btn);\n\t\t\t\t}\x2C\n\t\t\t\tsetCookie:function(cname\x2Ccvalue\x2Cexdays) {\n\t\t\t\t    var d \x3D new Date();\n\t\t\t\t    d.setTime(d.getTime() + (exdays*24*60*60*1000));\n\t\t\t\t    var expires \x3D \"expires\x3D\" + d.toGMTString();\n\t\t\t\t    document.cookie \x3D cname + \"\x3D\" + cvalue + \";\" + expires + \";path\x3D/\";\n\t\t\t\t}\x2C\n\t\t\t\tgetCookie: function(cname) {\n\t\t\t\t    var name \x3D cname + \"\x3D\";\n\t\t\t\t    var decodedCookie \x3D decodeURIComponent(document.cookie);\n\t\t\t\t    var ca \x3D decodedCookie.split(\';\');\n\t\t\t\t    for(var i \x3D 0; i < ca.length; i++) {\n\t\t\t\t        var c \x3D ca[i];\n\t\t\t\t        while (c.charAt(0) \x3D\x3D \' \') {\n\t\t\t\t            c \x3D c.substring(1);\n\t\t\t\t        }\n\t\t\t\t        if (c.indexOf(name) \x3D\x3D 0) {\n\t\t\t\t            return c.substring(name.length\x2C c.length);\n\t\t\t\t        }\n\t\t\t\t    }\n\t\t\t\t    return \"\";\n\t\t\t\t}\x2C\n\t\t\t\tcheckCookie: function() {\n\t\t\t\t\tvar get_cookie \x3D cookieApp.getCookie(private_opt.cookieName);\n\n\t\t\t\t\tif (get_cookie !\x3D \"\" && get_cookie !\x3D null) {\n\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'show\').addClass(\'hide\'); \n\t\t\t\t\t\t\n\t\t\t\t    } else {\n\t\t\t\t\t\t\tsetTimeout(function () {\n\t\t\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'hide\').addClass(\'show\');\n\t\t\t\t\t\t\t}\x2C settings.boxAppearDelay);\n\n\t\t\t\t\t\t\tvar button \x3D $(\'.cookie-bubble .agreement-btn\'); \n\t\t\t\t    \t\tbutton.click(function(event) {\n\t\t\t\t\t\t\t\tcookieApp.setCookie(private_opt.cookieName\x2C private_opt.cookieValue\x2C settings.cookieMaxAge); \n\t\t\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'show\').addClass(\'hide\'); \n\t\t\t\t\t\t});\n\t\t\t\t    }\n\t\t\t\t}\n\n\t\t\t}\n\t\t\tcookieApp.init();\n\t};\n})(jQuery);", Scope = Private
+	#tag Constant, Name = kJSCode, Type = String, Dynamic = False, Default = \"\"use strict\";\nvar tecc;\n(function (tecc) {\n    class teccCookieConsent extends XojoWeb.XojoControl {\n        constructor(id\x2C events) {\n            super(id\x2C events);\n        }\n\n        updateControl(data) {\n            super.updateControl(data);\n            let js \x3D $.parseJSON(data);\n            this.enabled \x3D js.enabled;\n            if ( this.enabled \x3D\x3D false ) {\n             return;\n            }\n            this.teccCookieConsentCSS \x3D js.teccCookieConsentCSS;\n            this.messageText \x3D js.messageText;\n            this.messageTextColor \x3D js.messageTextColor;\n\t    this.messageFontSize \x3D js.messageFontSize;\t\t\t\t \n            this.buttonText \x3D js.buttonText;\n            this.buttonColor \x3D js.buttonColor;\t  \t\t\t\t\n\t    this.buttonFontSize \x3D js.buttonFontSize;\t\n            this.cookiePolicyButtonText \x3D js.cookiePolicyButtonText;\n            this.cookiePolicyButtonTextColor \x3D js.cookiePolicyButtonTextColor;\n            this.cookiePolicyButtonUrl \x3D js.cookiePolicyButtonUrl;\n            this.iconColor \x3D js.iconColor\x2C \n            this.iconVisibility \x3D js.iconVisibility; \t\n            this.boxAppearDelay \x3D js.boxAppearDelay;\n            this.policyButtonTarget \x3D js.policyButtonTarget;\n            this.boxPosition \x3D js.boxPosition;\n            this.showPolicy \x3D js.showPolicy;\n            window.mytrigger \x3D this;\n            var element \x3D document.getElementById(\'teccCookieConsentinject\');\n            if ( element !\x3D null) {\n            element.innerHTML\x3D this.teccCookieConsentCSS;\n            }\n            $.cookieBubble( {\n             \tmessageText: this.messageText\x2C\n                messageTextColor: this.messageTextColor\x2C\n                messageFontSize: this.messageFontSize\x2C\n                buttonText: this.buttonText\x2C\n                buttonColor: this.buttonColor\x2C\n                buttonFontSize: this.buttonFontSize\x2C\n                iconColor: this.iconColor\x2C\n                iconVisibility: this.iconVisibility\x2C\n                cookiePolicyButtonText: this.cookiePolicyButtonText\x2C\n                cookiePolicyButtonTextColor: this.cookiePolicyButtonTextColor\x2C\n                cookiePolicyButtonUrl: this.cookiePolicyButtonUrl\x2C      \n                cookiePolicyButtonTarget: this.policyButtonTarget\x2C\n                boxAppearDelay: this.boxAppearDelay\x2C\n                boxPosition: this.boxPosition\x2C\n                showPolicy: this.showPolicy\n            });\n\n       \n          }\n      }\n    tecc.teccCookieConsent \x3D teccCookieConsent;\n})(tecc || (tecc \x3D {}));\n\n/****************************************\n * teccCookieConsent for Xojo Web 2 Version1.0\n * author: Dr. Jeannot Muller\n * Based on (correction of errors and adaption for Xojo Web 2):\n * \n * \n * cookieBubble.js: Version 1.1.4\n * author: Jo\xC3\xA3o Pereira\n * website: http://joaopereira.pt\n * email: joaopereirawd@gmail.com\n * Licensed MIT \n*****************************************/\n\n\n(function ($) {\n        $.myTrigger \x3D function() {\n            window.mytrigger.triggerServerEvent(\'PolicyClicked\'\x2C  null\x2C true);\n      }\n\n\t$.cookieBubble \x3D function (options) {\n\t\t\tvar private_opt \x3D {\n\t\t\t\tcookieName: \'cookieBubble\'\x2C\n\t\t\t\tisVisible: false\x2C\n\t\t\t\tcookieValue: true\n\t\t\t}\n\t\t\t//extended opts\n\t\t\tvar settings \x3D $.extend({\t\n\t\t\t\tcookieMaxAge  \t\t\t\t\t\t: 30\x2C \n\t\t\t\tmessageText\t\t\t\t\t\t\t: \'We use cookies to personalize your experience. By continuing to visit this website you agree to our use of cookies.\'\x2C \n\t\t\t\tmessageTextColor\t\t\t\t\t\t: undefined\x2C        \n\t\t\t\tmessageFontSize\t\t\t\t\t\t: undefined\x2C\t\t\t\t \n\t\t\t\tbuttonText \t\t\t\t\t\t\t: \'Got it\'\x2C   \n\t\t\t\tbuttonColor\t\t\t\t\t\t\t: undefined\x2C   \t\t\t\t\n\t\t\t\tbuttonFontSize\t\t\t\t\t\t: undefined\x2C\t\t\t\t  \n\t\t\t\ticonColor\t\t\t\t\t\t\t: undefined\x2C    \t\t\t \n\t\t\t\ticonVisibility\t\t  \t\t\t\t\t: true\x2C \t\t              \n\t\t\t\tcookiePolicyButtonText\t\t\t\t: \'Read Our Cookie Policy\'\x2C\n\t\t\t\tcookiePolicyButtonTextColor\t\t    \t: undefined\x2C\n\t\t\t\tcookiePolicyButtonUrl\t\t\t\t\t: \'http://allaboutcookies.org/\'\x2C\n\t\t\t\tcookiePolicyButtonTarget\t\t\t\t: \'_blank\'\x2C\n\t\t\t\tboxAppearDelay\t\t\t\t\t\t: 1000\x2C\n                               boxPosition   \t\t\t\t\t\t\t: undefined\x2C\n                               showPolicy\t\t\t\t\t\t\t: true\n\t\t\t}\x2C options);\n\n\t\t\tvar box_visibility \x3D private_opt.isVisible \? \'show\' : \'hide\';\n\t\tvar box_iconVisibility \x3D settings.iconVisibility \? \'<div class\x3D\"cb-image\"><svg xmlns\x3D\"http://www.w3.org/2000/svg\" viewBox\x3D\"0 0 97.93 97.93\"><defs><style>.cookie-inner-color{fill:\' + settings.iconColor + \'!important\' + \'}</style></defs><g id\x3D\"Layer_2\" data-name\x3D\"Layer 2\"><g id\x3D\"Layer_1-2\" data-name\x3D\"Layer 1\"><path d\x3D\"M44\x2C23.76a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C.91\x2C3.37A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C44\x2C23.76Z\"/><path d\x3D\"M25.9\x2C40.32a2.47\x2C2.47\x2C0\x2C0\x2C0\x2C0\x2C4.93h0a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C0-4.93Z\"/><circle cx\x3D\"32.08\" cy\x3D\"65.86\" r\x3D\"2.47\"/><path d\x3D\"M56.38\x2C69.91a2.47\x2C2.47\x2C0\x2C1\x2C0\x2C1.14\x2C1.49A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C56.38\x2C69.91Z\"/><path d\x3D\"M72\x2C52.68a2.47\x2C2.47\x2C0\x2C0\x2C0-2.38\x2C1.83\x2C2.44\x2C2.44\x2C0\x2C0\x2C0\x2C.25\x2C1.87\x2C2.47\x2C2.47\x2C0\x2C0\x2C0\x2C4.52-.59\x2C2.44\x2C2.44\x2C0\x2C0\x2C0-.25-1.87A2.47\x2C2.47\x2C0\x2C0\x2C0\x2C72\x2C52.68Z\"/><path class\x3D\"cookie-inner-color\" d\x3D\"M89.51\x2C52.86A14\x2C14\x2C0\x2C0\x2C1\x2C81\x2C47.2\x2C14.09\x2C14.09\x2C0\x2C0\x2C1\x2C61\x2C35.68\x2C14.09\x2C14.09\x2C0\x2C0\x2C1\x2C49.49\x2C15.73a14\x2C14\x2C0\x2C0\x2C1-5.66-8.55\x2C44\x2C44\x2C0\x2C0\x2C0-21.09\x2C6.15A44.26\x2C44.26\x2C0\x2C0\x2C0\x2C71.46\x2C87.08\x2C44.24\x2C44.24\x2C0\x2C0\x2C0\x2C89.51\x2C52.86ZM28.28\x2C43.42a2.47\x2C2.47\x2C0\x2C0\x2C1-2.38\x2C1.83h0a2.47\x2C2.47\x2C0\x2C1\x2C1\x2C2.38-1.83Zm3.8\x2C24.9a2.47\x2C2.47\x2C0\x2C1\x2C1\x2C2.47-2.47A2.47\x2C2.47\x2C0\x2C0\x2C1\x2C32.08\x2C68.32ZM44.92\x2C27.13A2.47\x2C2.47\x2C0\x2C1\x2C1\x2C44\x2C23.76\x2C2.47\x2C2.47\x2C0\x2C0\x2C1\x2C44.92\x2C27.13ZM57.28\x2C73.27a2.47\x2C2.47\x2C0\x2C1\x2C1-.9-3.36\x2C2.47\x2C2.47\x2C0\x2C0\x2C1\x2C.9\x2C3.36ZM74.42\x2C55.79a2.47\x2C2.47\x2C0\x2C1\x2C1-.25-1.87A2.45\x2C2.45\x2C0\x2C0\x2C1\x2C74.42\x2C55.79Z\"/><path d\x3D\"M97.93\x2C48.52v-.2A2.35\x2C2.35\x2C0\x2C0\x2C0\x2C95.7\x2C46a9.37\x2C9.37\x2C0\x2C0\x2C1-8-5.45\x2C2.35\x2C2.35\x2C0\x2C0\x2C0-3.49-.93\x2C9.51\x2C9.51\x2C0\x2C0\x2C1-5.44\x2C1.72A9.4\x2C9.4\x2C0\x2C0\x2C1\x2C69.39\x2C31.1a2.35\x2C2.35\x2C0\x2C0\x2C0-2.55-2.55c-.28\x2C0-.57\x2C0-.85\x2C0a9.39\x2C9.39\x2C0\x2C0\x2C1-7.68-14.81\x2C2.35\x2C2.35\x2C0\x2C0\x2C0-.93-3.49\x2C9.37\x2C9.37\x2C0\x2C0\x2C1-5.45-8A2.35\x2C2.35\x2C0\x2C0\x2C0\x2C49.61\x2C0H49a49\x2C49\x2C0\x2C1\x2C0\x2C49\x2C49C97.93\x2C48.82\x2C97.93\x2C48.67\x2C97.93\x2C48.52ZM71.46\x2C87.08A44.26\x2C44.26\x2C0\x2C0\x2C1\x2C22.74\x2C13.33\x2C44\x2C44\x2C0\x2C0\x2C1\x2C47.53\x2C4.72a14\x2C14\x2C0\x2C0\x2C0\x2C5.66\x2C8.55A14.09\x2C14.09\x2C0\x2C0\x2C0\x2C64.71\x2C33.22\x2C14.09\x2C14.09\x2C0\x2C0\x2C0\x2C84.66\x2C44.75a14\x2C14\x2C0\x2C0\x2C0\x2C8.56\x2C5.66A44.3\x2C44.3\x2C0\x2C0\x2C1\x2C71.46\x2C87.08Z\"/></g></g></svg></div>\' : \'\';\n\t\tvar cookiePolicyTarget \x3D settings.cookiePolicyButtonTarget \x3D\x3D\x3D \'_blank\' || settings.cookiePolicyButtonTarget \x3D\x3D\x3D \'_self\' \? settings.cookiePolicyButtonTarget : settings.cookiePolicyButtonTarget;\n\n\t\t\tvar cookieApp \x3D {\n\t\t\t\tinit: function() {\n\t\t\t\t\tcookieApp.body();\n\t\t\t\t\tcookieApp.painter();\n\t\t\t\t\tcookieApp.checkCookie(); \n\t\t\t\t}\x2C\n\t\t\t\tbody: function() {\n                                       var pButton \x3D \"\";\n                                       if ( settings.showPolicy \x3D\x3D true) {\n                                       \t\tvar pButton \x3D \"<a class\x3D\'cookie-policy-btn\' href\x3D\'#\' onclick\x3D\'$.myTrigger();return false;\'>\"\n\t\t\t\t\t\t\t\t\t\t+settings.cookiePolicyButtonText+\n\t\t\t\t\t\t\t\t\t\"</a>\";\n                                        };\n\t\t\t\t\t$(\"body\").append(\n\t\t\t\t\t\t\'<div class\x3D\"cookie-bubble \'+box_visibility +settings.boxPosition+\'\">\'+\n\t\t\t\t\t\t\t\'<div class\x3D \"cb-wrapper\">\'+\n\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-row\">\'+\n\t\t\t\t\t\t\t\t\tbox_iconVisibility+\n\t\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-row-content\">\'+\n\t\t\t\t\t\t\t\t\t\t\'<span class\x3D\"message\">\'+settings.messageText+\'</span>\'+\n\t\t\t\t\t\t\t\t\t\t\'<div class\x3D\"cb-controls\">\'+\n\t\t\t\t\t\t\t\t\t\t\t\'<button class\x3D\"agreement-btn\">\' + settings.buttonText + \'</button>\' +\n\t\t\t\t\t\t\t\t\t\t\t\tpButton +\n                                                                \t\t\'</div>\' +\n\t\t\t\t\t\t\t\t\t\'</div>\'+\n\t\t\t\t\t\t\t\'</div >\'+\n\t\t\t\t\t\t\'</div >\'\n\n\t\t\t\t\t); \n\t\t\t\t}\x2C\n\t\t\t\tpainter:function(){\n\t\t\t\t\tvar cb_message \t\t\t  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cb-row-content .message\')\x2C\n\t\t\t\t\t\tcb_button \t\t\t  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cb-row-content .agreement-btn\')\x2C\n\t\t\t\t\t\tcb_cookie_policy_btn  \x3D $(\'.cookie-bubble .cb-wrapper .cb-row .cookie-policy-btn\');\n\n\n\t\t\t\t\tvar style_message \x3D {\n\t\t\t\t\t\t\'color\': settings.messageTextColor\x2C\n\t\t\t\t\t\t\'font-size\': settings.messageFontSize\n\t\t\t\t\t}\n\n\t\t\t\t\tvar style_agreement_btn \x3D {\n\t\t\t\t\t\t\'background-color\': settings.buttonColor\x2C\n\t\t\t\t\t\t\'font-size\': settings.buttonFontSize\n\t\t\t\t\t}\n\n\t\t\t\t\tvar style_cookie_policy_btn \x3D {\n\t\t\t\t\t\t\'color\': settings.cookiePolicyButtonTextColor\n\t\t\t\t\t}\n\t\t\t\t\n\t\t\t\t\tcb_message.css(style_message);\n\t\t\t\t\tcb_button.css(style_agreement_btn);\n\t\t\t\t\tcb_cookie_policy_btn.css(style_cookie_policy_btn);\n\t\t\t\t}\x2C\n\t\t\t\tsetCookie:function(cname\x2Ccvalue\x2Cexdays) {\n\t\t\t\t    var d \x3D new Date();\n\t\t\t\t    d.setTime(d.getTime() + (exdays*24*60*60*1000));\n\t\t\t\t    var expires \x3D \"expires\x3D\" + d.toGMTString();\n\t\t\t\t    document.cookie \x3D cname + \"\x3D\" + cvalue + \";\" + expires + \";path\x3D/\";\n\t\t\t\t}\x2C\n\t\t\t\tgetCookie: function(cname) {\n\t\t\t\t    var name \x3D cname + \"\x3D\";\n\t\t\t\t    var decodedCookie \x3D decodeURIComponent(document.cookie);\n\t\t\t\t    var ca \x3D decodedCookie.split(\';\');\n\t\t\t\t    for(var i \x3D 0; i < ca.length; i++) {\n\t\t\t\t        var c \x3D ca[i];\n\t\t\t\t        while (c.charAt(0) \x3D\x3D \' \') {\n\t\t\t\t            c \x3D c.substring(1);\n\t\t\t\t        }\n\t\t\t\t        if (c.indexOf(name) \x3D\x3D 0) {\n\t\t\t\t            return c.substring(name.length\x2C c.length);\n\t\t\t\t        }\n\t\t\t\t    }\n\t\t\t\t    return \"\";\n\t\t\t\t}\x2C\n\t\t\t\tcheckCookie: function() {\n\t\t\t\t\tvar get_cookie \x3D cookieApp.getCookie(private_opt.cookieName);\n\n\t\t\t\t\tif (get_cookie !\x3D \"\" && get_cookie !\x3D null) {\n\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'show\').addClass(\'hide\'); \n\t\t\t\t\t\t\n\t\t\t\t    } else {\n\t\t\t\t\t\t\tsetTimeout(function () {\n\t\t\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'hide\').addClass(\'show\');\n\t\t\t\t\t\t\t}\x2C settings.boxAppearDelay);\n\n\t\t\t\t\t\t\tvar button \x3D $(\'.cookie-bubble .agreement-btn\'); \n\t\t\t\t    \t\tbutton.click(function(event) {\n\t\t\t\t\t\t\t\tcookieApp.setCookie(private_opt.cookieName\x2C private_opt.cookieValue\x2C settings.cookieMaxAge); \n\t\t\t\t\t\t\t\t$(\'.cookie-bubble\').removeClass(\'show\').addClass(\'hide\'); \n\t\t\t\t\t\t});\n\t\t\t\t    }\n\t\t\t\t}\n\n\t\t\t}\n\t\t\tcookieApp.init();\n\t};\n})(jQuery);", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = LibraryIcon, Type = String, Dynamic = False, Default = \"", Scope = Public
@@ -541,6 +608,11 @@ Inherits WebSDKControl
 		  top_left
 		  top_center
 		top_right
+	#tag EndEnum
+
+	#tag Enum, Name = PolicyButtonTargets, Type = Integer, Flags = &h0
+		NewPage
+		SamePage
 	#tag EndEnum
 
 
@@ -674,6 +746,14 @@ Inherits WebSDKControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PolicyButtonShow"
+			Visible=true
+			Group="teccGDPR"
+			InitialValue="true"
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="PolicyButtonText"
 			Visible=true
 			Group="teccGDPR"
@@ -696,6 +776,18 @@ Inherits WebSDKControl
 			InitialValue="https://blog.xojodocs.com"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PolicyButtonTarget"
+			Visible=true
+			Group="teccGDPR"
+			InitialValue="0"
+			Type="PolicyButtonTargets"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NewPage"
+				"1 - SamePage"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BoxAppearDelay"
