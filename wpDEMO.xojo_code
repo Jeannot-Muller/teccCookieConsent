@@ -265,6 +265,7 @@ Begin WebPage wpDEMO
       PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
       PolicyURLHandler=   0
+      PopupBackgroundColor=   &cEAEAEA00
       Scope           =   2
       _mPanelIndex    =   -1
    End
