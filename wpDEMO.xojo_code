@@ -254,19 +254,18 @@ Begin WebPage wpDEMO
       IconColor       =   &c93510000
       IconVisibility  =   True
       Index           =   -2147483648
-      Left            =   0.0
       LockedInPosition=   False
       MessageFontSize =   26
       MessageText     =   "hallo jmu üöäß"
       MessageTextColor=   &c008F5100
+      OwnCookieMaxAgeDays=   30
       PolicyButtonShow=   True
       PolicyButtonTarget=   0
       PolicyButtonText=   "Read Our Cookie Policy jmu"
       PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
-      PolicyURLHandler=   0
+      PolicyURLHandler=   1
       Scope           =   2
-      Top             =   0.0
       _mPanelIndex    =   -1
    End
 End
