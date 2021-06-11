@@ -247,26 +247,28 @@ Begin WebPage wpDEMO
       BoxAppearDelay  =   0
       BoxPosition     =   5
       ButtonColor     =   &cFF930000
-      ButtonFontSize  =   14
-      ButtonText      =   "Got it! OK."
+      ButtonFontSize  =   18
+      ButtonText      =   "OK"
       ControlID       =   ""
       enabled         =   True
       IconColor       =   &c93510000
       IconVisibility  =   True
       Index           =   -2147483648
+      Left            =   0.0
       LockedInPosition=   False
-      MessageFontSize =   26
-      MessageText     =   "hallo jmu üöäß"
+      MessageFontSize =   18
+      MessageText     =   "We use cookies to personalize your experience. By continuing to visit this website you agree to our use of cookies."
       MessageTextColor=   &c008F5100
       OwnCookieMaxAgeDays=   30
       PolicyButtonShow=   True
       PolicyButtonTarget=   0
-      PolicyButtonText=   "Read Our Cookie Policy jmu"
+      PolicyButtonText=   "Read Our Cookie Policy."
       PolicyButtonTextColor=   &c79797900
       PolicyButtonURL =   "https://blog.xojodocs.com"
       PolicyURLHandler=   0
       PopupBackgroundColor=   &cEAEAEA00
       Scope           =   2
+      Top             =   0.0
       _mPanelIndex    =   -1
    End
 End

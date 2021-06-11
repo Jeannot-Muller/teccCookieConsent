@@ -663,7 +663,7 @@ Inherits WebSDKControl
 	#tag Constant, Name = LibraryIcon, Type = String, Dynamic = False, Default = \"", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = NavigatorIcon, Type = String, Dynamic = False, Default = \"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABemlDQ1BJQ0MgUHJvZmlsZQAAKJF9kE0rRFEYx39miLzNgoWFxY1hY4hRYqPMJNQsNCiDzZ1rXtTMuN25QjYWynaKEhtvCz4BGwtlrZQiJTtfgNhI13NmaLyUp57z/M5znvPvnD+4fLpppko7IZ2xrfBQQJuMTGnlj5TRiIda2nQjaw6MjoaQ+Ko/4/WGElWv25XW3/N/o2o2ljWgpEK43zAtW3hYuHnRNhUrvXpLHiW8qjhR4E3F0QIf52fGw0HhM2HNSOqzwvfCPiNppcGl9L3RbzOJb5xOLRif71E/qY5lJsakNkk2kiXMEAE0RhgkSA9d9MnaQzt+OmSHHVuy1eXgvLlszSWStjYgTsS0kYzR4dP8nX6ZUb7+9qvYm9+D3hdw54q96BacrkPDXbHn3QXPGpxcmLql51tuSVc8Dk9HUBOBuiuonM7Gu/2FH1UHoOzBcZ5boHwD3nOO87bvOO8Hclk8Os8UPPrU4vAWxlcgdAnbO9Aq2p6ZDyszZzCPSKziAAAAbGVYSWZNTQAqAAAACAAEARoABQAAAAEAAAA+ARsABQAAAAEAAABGASgAAwAAAAEAAgAAh2kABAAAAAEAAABOAAAAAAAAAGAAAAABAAAAYAAAAAEAAqACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAADImMOoAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA3ElEQVQ4Ec2TPQrCQBCFVwUvYWthL2ihpVgL2trZ2nsBGyuxtlBvYGXvBTyB9jYJ/iP4900IYbIoxLVx4YO3O/PeTkJijDFZGIEHz4RIr3jEG4ikRrtPQr662Q7wUgTIofNKOztD47uAG7WjCj4ofUbf1T6Q+rkWnFShCWtoQAuWMIUa9EF7YpsSxb1qqKAnIFMNoANb+BhQpKgDduy7MIQHzEFCowD7HfQo1kHG3kAbVpAHmWAGBYitKI1T0Vc4KX0JtdRkolj/f3wHPmO5Lj+DMwdlx4Sx+H76nV8sE3ug9JK8jwAAAABJRU5ErkJggg\x3D\x3D", Scope = Public
+	#tag Constant, Name = NavigatorIcon, Type = String, Dynamic = False, Default = \"", Scope = Public
 	#tag EndConstant
 
 
@@ -739,7 +739,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="OwnCookieMaxAgeDays"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="30"
 			Type="Integer"
 			EditorType=""
@@ -747,7 +747,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="BoxPosition"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="2"
 			Type="boxPositions"
 			EditorType="Enum"
@@ -763,7 +763,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PopupBackgroundColor"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="&cFFFFFF"
 			Type="color"
 			EditorType=""
@@ -771,7 +771,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="MessageText"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="We use cookies to personalize your experience. By continuing to visit this website you agree to our use of cookies."
 			Type="string"
 			EditorType="MultiLineEditor"
@@ -779,7 +779,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="MessageFontSize"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="18"
 			Type="Integer"
 			EditorType=""
@@ -787,7 +787,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="MessageTextColor"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="&c424242"
 			Type="color"
 			EditorType=""
@@ -795,7 +795,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="ButtonText"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="Got it!"
 			Type="string"
 			EditorType="MultiLineEditor"
@@ -803,7 +803,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="ButtonFontSize"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="14"
 			Type="Integer"
 			EditorType=""
@@ -811,7 +811,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="ButtonColor"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="&c0096FF"
 			Type="Color"
 			EditorType=""
@@ -819,7 +819,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="IconColor"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="&c935100"
 			Type="Color"
 			EditorType=""
@@ -827,7 +827,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="IconVisibility"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="true"
 			Type="boolean"
 			EditorType=""
@@ -835,7 +835,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyButtonShow"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="true"
 			Type="boolean"
 			EditorType=""
@@ -843,7 +843,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyURLHandler"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="0"
 			Type="PolicyURLHandlers"
 			EditorType="Enum"
@@ -855,7 +855,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyButtonText"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="Read Our Cookie Policy"
 			Type="String"
 			EditorType="MultiLineEditor"
@@ -863,7 +863,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyButtonTextColor"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="&c797979"
 			Type="Color"
 			EditorType=""
@@ -871,7 +871,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyButtonURL"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="https://blog.xojodocs.com"
 			Type="string"
 			EditorType="MultiLineEditor"
@@ -879,7 +879,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="PolicyButtonTarget"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="0"
 			Type="PolicyButtonTargets"
 			EditorType="Enum"
@@ -891,7 +891,7 @@ Inherits WebSDKControl
 		#tag ViewProperty
 			Name="BoxAppearDelay"
 			Visible=true
-			Group="teccGDPR"
+			Group="teccCookieConsent"
 			InitialValue="1000"
 			Type="Integer"
 			EditorType=""
